@@ -3,9 +3,9 @@ var router = express.Router();
 var request = require('request');
 var querystring = require('querystring');
 
-var client_id = 'fb3cfef85b2a4829b284cea065e0f64a'; // Your client id
-var client_secret = '119e3bafc3b44188af268fe0e1243f95'; // Your secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+var client_id = 'ID_HERE'; // Your client id
+var client_secret = 'SECRET HERE'; // Your secret
+var redirect_uri = 'URI HERE'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters

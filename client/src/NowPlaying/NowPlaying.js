@@ -16,7 +16,6 @@ class NowPlaying extends Component {
         artist_id: "",
         album: "",
         album_id: "",
-
       }
     }
 
