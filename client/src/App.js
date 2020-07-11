@@ -1,40 +1,35 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
+import NowPlaying from './NowPlaying/NowPlaying.js';
 import './App.css';
 
 class App extends Component {
   constructor(props){
     super(props);
-    this.state = { apiResponse: "" };
+    this.state = {
+    }
   }
 
-  callAPI() {
-    fetch("http://localhost:9000/test")
-        .then(res => res.text())
-        .then(res => this.setState({ apiResponse: res }));
+  getHashParams() {
+    var hashParams = {};
+    var e, r = /([^&;=]+)=?([^&;]*)/g,
+        q = window.location.hash.substring(1);
+    e = r.exec(q)
+    while (e) {
+       hashParams[e[1]] = decodeURIComponent(e[2]);
+       e = r.exec(q);
     }
-
-  componentWillMount() {
-    this.callAPI();
+    return hashParams;
   }
 
   render() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p className="App-intro">{this.state.apiResponse}</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const params = this.getHashParams();
+    const token = params.access_token;
+    return (
+      <div className='App'>
+        <a href='http://localhost:8888/login'> Login to Spotify </a>
+        <NowPlaying token = {token} />
+      </div>
+    )
   }
 }
 
