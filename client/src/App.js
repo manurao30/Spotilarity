@@ -26,7 +26,7 @@ class App extends Component {
     const token = params.access_token;
     return (
       <div className='App'>
-        <a href='http://localhost:8888/login'> Login to Spotify </a>
+        {!token && <a href='http://localhost:8888/login'> Login to Spotify </a>}
         <NowPlaying token = {token} />
       </div>
     )
