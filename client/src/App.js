@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import NowPlaying from './NowPlaying/NowPlaying.js';
+import InfoPlayer from './Components/InfoPlayer/InfoPlayer.js';
+import Login from './Components/Login/Login.js';
 import './App.css';
 
 class App extends Component {
@@ -26,8 +27,9 @@ class App extends Component {
     const token = params.access_token;
     return (
       <div className='App'>
-        {!token && <a href='http://localhost:8888/login'> Login to Spotify </a>}
-        <NowPlaying token = {token} />
+        {/* {!token && <a href='http://localhost:8888/login'> Login to Spotify </a>} */}
+        <Login token = {token} />
+        {/* <InfoPlayer token = {token} /> */}
       </div>
     )
   }

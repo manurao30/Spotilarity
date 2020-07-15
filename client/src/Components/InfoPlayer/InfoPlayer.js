@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import './NowPlaying.css';
+import './InfoPlayer.css';
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 
-class NowPlaying extends Component {
+class InfoPlayer extends Component {
     constructor(props){
       super(props);
       this.state = {
@@ -11,7 +11,7 @@ class NowPlaying extends Component {
         nowPlaying: { name: '', albumArt: '' },
         isPlaying: false,
         no_data: false,
-        trackid: "",
+        track_id: "",
         artist: "",
         artist_id: "",
         album: "",
@@ -34,7 +34,7 @@ class NowPlaying extends Component {
                             albumArt: response.item.album.images[0].url
                         },
                         isPlaying: response.is_playing,
-                        trackid: response.item.id,
+                        track_id: response.item.id,
                         artist: response.item.artists[0],
                         artist_id: response.item.artists[0].id,
                         album: response.item.album,
@@ -50,7 +50,7 @@ class NowPlaying extends Component {
             spotifyApi.setAccessToken(this.props.token);
         }
         this.getNowPlaying();
-        this.interval = setInterval(() => this.tick(), 20000);
+        this.interval = setInterval(() => this.tick(), 100000);
     }
 
     componentWillUnmount() {
@@ -92,7 +92,7 @@ class NowPlaying extends Component {
     }
 
     getAudioAnalysis() {
-        spotifyApi.getAudioFeaturesForTrack(this.state.trackid)
+        spotifyApi.getAudioFeaturesForTrack(this.state.track_id)
             .then((response) => {
                 console.log(response)
             })
@@ -132,10 +132,10 @@ class NowPlaying extends Component {
                     { this.state.loggedIn && <button onClick = {() => this.skipToPrevious()}> Previous </button> }
                     { this.state.loggedIn && (this.state.isPlaying ? <button onClick = {() => this.pause()}> Pause </button> : <button onClick = {() => this.play()}> Play </button>)}
                     { this.state.loggedIn && <button onClick = {() => this.skipToNext()}> Skip </button> }
-                    { <button onClick = {() => this.getAudioAnalysis()}> Audio Analysis </button> }
-                    { <button onClick = {() => this.getTracksInAlbum()}> Album Tracks </button> }
-                    { <button onClick = {() => this.getArtistTopTracks()}> Artist Top </button> }
-                    { <button onClick = {() => this.getArtistRelatedArtists()}> Artist Related </button> }
+                    { this.state.loggedIn && <button onClick = {() => this.getAudioAnalysis()}> Audio Analysis </button> }
+                    { this.state.loggedIn && <button onClick = {() => this.getTracksInAlbum()}> Album Tracks </button> }
+                    { this.state.loggedIn && <button onClick = {() => this.getArtistTopTracks()}> Artist Top </button> }
+                    { this.state.loggedIn && <button onClick = {() => this.getArtistRelatedArtists()}> Artist Related </button> }
                 </div> }
                 {this.state.no_data && (
                     <p>
@@ -148,4 +148,4 @@ class NowPlaying extends Component {
       }
 }
 
-export default NowPlaying;
+export default InfoPlayer;
