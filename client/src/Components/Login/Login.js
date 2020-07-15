@@ -6,7 +6,8 @@ class Login extends Component {
     constructor(props){
         super(props);
         this.state = {
-            loggedIn: false
+            token: this.props.token,
+            loggedIn: this.props.token ? true : false
         };
     }
 
@@ -14,7 +15,7 @@ class Login extends Component {
         return (
             <div>
                 {!this.props.token && <a href='http://localhost:8888/login'> Login to Spotify </a>}
-                <InfoPlayer token = {this.props.token} />
+                {this.state.loggedIn && <InfoPlayer token = {this.state.token} />}
             </div>
         )
     }

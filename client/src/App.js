@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import InfoPlayer from './Components/InfoPlayer/InfoPlayer.js';
 import Login from './Components/Login/Login.js';
 import './App.css';
 
@@ -26,10 +25,10 @@ class App extends Component {
     const params = this.getHashParams();
     const token = params.access_token;
     return (
-      <div className='App'>
-        {/* {!token && <a href='http://localhost:8888/login'> Login to Spotify </a>} */}
-        <Login token = {token} />
-        {/* <InfoPlayer token = {token} /> */}
+      <div className="App">
+        <header className="App-header">
+          <Login token = {token} />
+        </header>
       </div>
     )
   }
