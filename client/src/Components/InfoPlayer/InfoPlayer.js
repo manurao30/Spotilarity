@@ -41,9 +41,9 @@ class InfoPlayer extends Component {
                             albumArt: response.item.album.images[0].url,
                             isPlaying: response.is_playing,
                             track_id: response.item.id,
-                            artist: response.item.artists[0],
+                            artist: response.item.artists[0].name,
                             artist_id: response.item.artists[0].id,
-                            album: response.item.album,
+                            album: response.item.album.name,
                             album_id: response.item.album.id,
                             loggedIn: true,
                             no_data: false
@@ -73,10 +73,10 @@ class InfoPlayer extends Component {
 
     render() {
         return (
-        <div class = "wrapper">
-            {!this.state.no_data && <div class = "row">
-                <div class = "player"> {this.state.playback.loggedIn && <Player playback = {this.state.playback}/> }</div>
-                <div class = "features"> {this.state.playback.loggedIn && <Features playback = {this.state.playback}/> } </div> 
+        <div className = "wrapper">
+            {!this.state.no_data && <div className = "row">
+                <div className = "player"> {this.state.playback.loggedIn && <Player playback = {this.state.playback}/> }</div>
+                <div className = "features"> {this.state.playback.loggedIn && <Features playback = {this.state.playback}/> } </div> 
             </div>
             }
             {this.state.no_data && (<p> Please play something on your Spotify for something to be shown here!</p>)}

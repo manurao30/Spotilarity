@@ -13,7 +13,7 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
+            <div className = "Login">
                 {!this.props.token && <a href='http://localhost:8888/login'> Login to Spotify </a>}
                 {this.state.loggedIn && <InfoPlayer token = {this.state.token} />}
             </div>

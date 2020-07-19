@@ -1,0 +1,30 @@
+.Name {
+    font-size: 23px;
+    color: black;
+    margin-bottom: 1vh;
+}
+
+.Artist {
+    font-size: 18px;
+    color: black;
+    margin-bottom: 2vh;
+}
+
+.Album {
+    font-size: 18px;
+    color: black;
+    margin-top: 1vh;
+}
+
+.Picture {
+    height: 50vh;
+}
+
+.Button {
+    height: 5vh;
+}
+
+.Border {
+    background-color: lightblue;
+    border: 0px;
+}

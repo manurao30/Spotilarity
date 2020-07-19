@@ -2,6 +2,7 @@
 
 .App {
   text-align: center;
+  height: 100%;
 }
 .App-header {
   background-color: #282c34;
@@ -16,4 +17,10 @@
 
 button {
   margin: 10px;
+}
+
+html, body {margin:0;padding:0;height:100%;}
+
+html, body, #app, #app>div {
+  height: 100%
 }
