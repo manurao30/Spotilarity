@@ -80,13 +80,14 @@ class InfoPlayer extends Component {
     render() {
         return (
         <div>
-            {!this.state.no_data && <div className = "row">
-                <div className = "player"> {this.state.playback.loggedIn && <Player playback = {this.state.playback}/> }</div>
-                <div className = "features"> {this.state.playback.loggedIn && <Features playback = {this.state.playback} new_song = {this.state.new_song}/> } </div> 
-            </div>
-            }
+            {!this.state.no_data && 
+                <div className = "row">
+                    <div className = "player"> {this.state.playback.loggedIn && <Player playback = {this.state.playback}/> } </div>
+                    <div className = "features"> {this.state.playback.loggedIn && <Features playback = {this.state.playback} new_song = {this.state.new_song}/> } </div> 
+                </div>}
             {this.state.no_data && (<p> Please play something on your Spotify for something to be shown here!</p>)}
         </div>
+
         )
       }
 }

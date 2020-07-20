@@ -1,32 +1,22 @@
-.wrapper {
-    margin: 10px;
-    background-color: red;
-    /* height: 100%; */
-}
-  
 .row {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
 }
-  
+
 .player {
-  display: flex;
-  flex-direction: column;
-  /* flex-basis: 100%; */
-  flex: 1;
-  background-color: lightblue;
   height: 100vh;
+  width: 33vw;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: lightblue;
+  position: fixed;
 }
-  
+
 .features {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex-grow: 1;
-  flex: 2;
   background-color: black;
+  margin-left: 33vw;
+  width: 67vw;
 }
