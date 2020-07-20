@@ -3,3 +3,15 @@
     text-align: left;
     margin: 1vw;
 }
+
+.Container {
+    display: flex;
+}
+
+.Chart {
+    flex: 1;
+}
+
+.List {
+    flex: 1;
+}

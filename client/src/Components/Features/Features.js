@@ -15,7 +15,7 @@ class Features extends Component {
     render() {
         return (
             <div> 
-                <SongFeatures playback = {this.props.playback}/>
+                <SongFeatures playback = {this.props.playback} new_song = {this.props.new_song}/>
                 <AlbumFeatures playback = {this.props.playback}/> 
                 <ArtistFeatures playback = {this.props.playback}/> 
             </div>

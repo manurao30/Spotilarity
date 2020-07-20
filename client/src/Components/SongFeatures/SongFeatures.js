@@ -17,14 +17,15 @@ class SongFeatures extends Component{
                 instrumentalness: 0,
                 liveness: 0,
                 speechiness: 0
-            }
+            },
+            display: false
         }
     }
 
     getAudioAnalysis() {
         spotifyApi.getAudioFeaturesForTrack(this.props.playback.track_id)
             .then((response) => {
-                console.log(response)
+                console.log(response, 'audio analysis')
                 this.setState({
                     data: 
                     {
@@ -43,7 +44,10 @@ class SongFeatures extends Component{
     componentDidMount() {
         setTimeout(function() { //Start the timer
             this.getAudioAnalysis()
-        }.bind(this), 1000)
+            this.setState({
+                display: true
+            });
+        }.bind(this), 1250)
         this.interval = setInterval(() => this.tick(), 100000);
     }
 
@@ -52,7 +56,9 @@ class SongFeatures extends Component{
     }
 
     tick() {
-        this.getAudioAnalysis();
+        if(this.props.new_song) {
+            this.getAudioAnalysis();
+        }
     }
 
     render() {
@@ -85,7 +91,22 @@ class SongFeatures extends Component{
         return(
             <div>
                 <div className = "Title"> Audio Analysis </div>
-                <RadarChart data = {datas} captions = {caps}/>
+                {this.state.display &&
+                <div className = "Container">
+                    <div className = "Chart"> 
+                        <RadarChart data = {datas} captions = {caps}/>
+                    </div>
+                    <div className = "List"> 
+                        <div> Danceability: {this.state.data.danceability} </div>
+                        <div> Energy: {this.state.data.energy} </div>
+                        <div> Valence: {this.state.data.valence} </div>
+                        <div> Acousticness: {this.state.data.acousticness} </div>
+                        <div> Instrumentalness: {this.state.data.instrumentalness} </div>
+                        <div> Liveness: {this.state.data.liveness} </div>
+                        <div> Speechiness: {this.state.data.speechiness} </div>
+                    </div>
+                </div>
+                }
             </div>
         )
     }
