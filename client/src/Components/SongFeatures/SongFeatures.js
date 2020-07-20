@@ -40,6 +40,21 @@ class SongFeatures extends Component{
             })
     }
 
+    componentDidMount() {
+        setTimeout(function() { //Start the timer
+            this.getAudioAnalysis()
+        }.bind(this), 1000)
+        this.interval = setInterval(() => this.tick(), 100000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    tick() {
+        this.getAudioAnalysis();
+    }
+
     render() {
         const caps = {
             // columns
@@ -69,7 +84,7 @@ class SongFeatures extends Component{
 
         return(
             <div>
-                <button onClick = {() => this.getAudioAnalysis()}> Audio Analysis </button> 
+                <div className = "Title"> Audio Analysis </div>
                 <RadarChart data = {datas} captions = {caps}/>
             </div>
         )

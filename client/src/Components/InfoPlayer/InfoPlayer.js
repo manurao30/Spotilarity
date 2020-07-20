@@ -58,7 +58,7 @@ class InfoPlayer extends Component {
             spotifyApi.setAccessToken(this.props.token);
         }
         this.getNowPlaying();
-        this.interval = setInterval(() => this.tick(), 100000);
+        this.interval = setInterval(() => this.tick(), 5000);
     }
 
     componentWillUnmount() {

@@ -22,7 +22,7 @@ class Player extends Component {
                 render: true, 
                 isPlaying: this.props.playback.isPlaying
             }) //After 1 second, set render to true
-        }.bind(this), 400)
+        }.bind(this), 500)
         
     }
 
