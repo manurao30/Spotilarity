@@ -8,6 +8,7 @@ class ArtistFeatures extends Component{
         super(props);
         this.state = {
             display: false,
+            selected: false,
             artist_tracks: [],
             artist_related: []
         }
@@ -21,6 +22,22 @@ class ArtistFeatures extends Component{
                 display: true
             });
         }.bind(this), 1250)
+        this.interval = setInterval(() => this.tick(), 100000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    tick() {
+        if(this.props.new_song) {
+            this.getArtistTopTracks()
+            this.getArtistRelatedArtists()
+        }
+    }
+
+    select() {
+        this.state.selected ? this.setState({selected: false}) : this.setState({selected: true})
     }
 
     getArtistTopTracks() {
@@ -54,31 +71,39 @@ class ArtistFeatures extends Component{
     render() {
         return(
             <div>
-                <div className = "Title"> Artist Features </div>
-                <div>
-                    <div className = "Title"> Other Popular Tracks By {this.props.playback.artist} </div>
-                    <ol>
-                        {this.state.artist_tracks.map(
-                            track => (
-                                <li key = {track[1]}>
-                                    {track[0].name}
-                                </li>
-                            )
-                        )}
-                    </ol>
+                <div className = "Line">
+                    <div className = "Title"> Artist Features </div>
+                    {this.state.selected ? <button className = "Dropdown" onClick = {() => this.select()}> ^ </button>
+                    : <button className = "Dropdown" onClick = {() => this.select()}> v </button>}
                 </div>
-                <div>
-                    <div className = "Title"> Other Artists like {this.props.playback.artist} </div>
-                    <ol>
-                        {this.state.artist_related.map(
-                            artist => (
-                                <li key = {artist[1]}>
-                                    {artist[0].name}
-                                </li>
-                            )
-                        )}
-                    </ol>
-                </div>
+                {this.state.selected && 
+                    <div>
+                        <div>
+                            <div className = "Title"> Other Popular Tracks By {this.props.playback.artist} </div>
+                            <ol>
+                                {this.state.artist_tracks.map(
+                                    track => (
+                                        <li key = {track[1]}>
+                                            {track[0].name}
+                                        </li>
+                                    )
+                                )}
+                            </ol>
+                        </div>
+                        <div>
+                            <div className = "Title"> Other Artists like {this.props.playback.artist} </div>
+                            <ol>
+                                {this.state.artist_related.map(
+                                    artist => (
+                                        <li key = {artist[1]}>
+                                            {artist[0].name}
+                                        </li>
+                                    )
+                                )}
+                            </ol>
+                        </div>
+                    </div>
+                }
             </div>
         )
     }

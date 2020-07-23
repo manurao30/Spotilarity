@@ -8,7 +8,8 @@ class AlbumFeatures extends Component{
         super(props);
         this.state = {
             tracks: [],
-            display: false
+            display: false,
+            selected: false
         }
     }
 
@@ -18,7 +19,22 @@ class AlbumFeatures extends Component{
             this.setState({
                 display: true
             });
-        }.bind(this), 1250)
+        }.bind(this), 1250);
+        this.interval = setInterval(() => this.tick(), 100000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    tick() {
+        if(this.props.new_song) {
+            this.getTracksInAlbum();
+        }
+    }
+
+    select() {
+        this.state.selected ? this.setState({selected: false}) : this.setState({selected: true})
     }
 
     getTracksInAlbum() {
@@ -38,7 +54,12 @@ class AlbumFeatures extends Component{
     render() {
         return(
             <div>
-                <div className = "Title"> Album Features </div>
+                <div className = "Line">
+                    <div className = "Title"> Album Features </div>
+                    {this.state.selected ? <button className = "Dropdown" onClick = {() => this.select()}> ^ </button>
+                    : <button className = "Dropdown" onClick = {() => this.select()}> v </button>}
+                </div>
+                {this.state.selected && 
                 <ol>
                     {this.state.tracks.map(
                         track => (
@@ -48,6 +69,7 @@ class AlbumFeatures extends Component{
                         )
                     )}
                 </ol>
+            }
             </div>
         )
     }

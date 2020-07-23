@@ -15,3 +15,16 @@
 .List {
     flex: 1;
 }
+
+.Line {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Dropdown {
+    margin-right: 5vw;
+    color: white;
+    background-color: black;
+    border: none;
+    font-size: 18px;
+}

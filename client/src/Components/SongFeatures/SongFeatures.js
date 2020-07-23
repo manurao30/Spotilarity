@@ -18,7 +18,8 @@ class SongFeatures extends Component{
                 liveness: 0,
                 speechiness: 0
             },
-            display: false
+            display: false,
+            selected: false
         }
     }
 
@@ -61,6 +62,10 @@ class SongFeatures extends Component{
         }
     }
 
+    select() {
+        this.state.selected ? this.setState({selected: false}) : this.setState({selected: true})
+    }
+
     render() {
         const caps = {
             // columns
@@ -90,21 +95,29 @@ class SongFeatures extends Component{
 
         return(
             <div>
-                <div className = "Title"> Audio Analysis </div>
-                {this.state.display &&
-                <div className = "Container">
-                    <div className = "Chart"> 
-                        <RadarChart data = {datas} captions = {caps}/>
+                <div className = "Line">
+                    <div className = "Title"> Audio Analysis </div>
+                    {this.state.selected ? <button className = "Dropdown" onClick = {() => this.select()}> ^ </button>
+                    : <button className = "Dropdown" onClick = {() => this.select()}> v </button>}
+                </div>
+                {this.state.selected && 
+                <div>
+                    {this.state.display &&
+                    <div className = "Container">
+                        <div className = "Chart"> 
+                            <RadarChart data = {datas} captions = {caps}/>
+                        </div>
+                        <div className = "List"> 
+                            <div> Danceability: {this.state.data.danceability} </div>
+                            <div> Energy: {this.state.data.energy} </div>
+                            <div> Valence: {this.state.data.valence} </div>
+                            <div> Acousticness: {this.state.data.acousticness} </div>
+                            <div> Instrumentalness: {this.state.data.instrumentalness} </div>
+                            <div> Liveness: {this.state.data.liveness} </div>
+                            <div> Speechiness: {this.state.data.speechiness} </div>
+                        </div>
                     </div>
-                    <div className = "List"> 
-                        <div> Danceability: {this.state.data.danceability} </div>
-                        <div> Energy: {this.state.data.energy} </div>
-                        <div> Valence: {this.state.data.valence} </div>
-                        <div> Acousticness: {this.state.data.acousticness} </div>
-                        <div> Instrumentalness: {this.state.data.instrumentalness} </div>
-                        <div> Liveness: {this.state.data.liveness} </div>
-                        <div> Speechiness: {this.state.data.speechiness} </div>
-                    </div>
+                    }
                 </div>
                 }
             </div>
