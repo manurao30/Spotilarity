@@ -1,0 +1,5 @@
+.Features-Container {
+    width: 67vw;
+    display: flex;
+    flex-direction: column;
+}

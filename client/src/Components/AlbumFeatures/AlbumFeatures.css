@@ -4,10 +4,6 @@
     margin: 1vw;
 }
 
-.Container {
-    display: flex;
-}
-
 .Line {
     display: flex;
     justify-content: space-between;
@@ -19,4 +15,23 @@
     background-color: black;
     border: none;
     font-size: 18px;
+}
+
+.Album-Features-Container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.Album-Container {
+    background-color: rgb(255,160,122);
+    opacity: 1;
+    transform: none;
+    margin: 1vw;
+    width: 23vw;
+    border-radius: 20px;
+    padding: 0.7vw;
+    font-size: 18px;
+    color:  rgb(6, 62, 134);
 }

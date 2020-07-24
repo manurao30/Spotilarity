@@ -60,15 +60,15 @@ class AlbumFeatures extends Component{
                     : <button className = "Dropdown" onClick = {() => this.select()}> v </button>}
                 </div>
                 {this.state.selected && 
-                <ol>
+                <div className = "Album-Features-Container">
                     {this.state.tracks.map(
                         track => (
-                            <li key = {track.track_number}>
+                            <div key = {track.track_number} className = "Album-Container">
                                 {track.name}
-                            </li>
+                            </div>
                         )
                     )}
-                </ol>
+                </div>
             }
             </div>
         )

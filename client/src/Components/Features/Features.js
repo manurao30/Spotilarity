@@ -14,10 +14,10 @@ class Features extends Component {
 
     render() {
         return (
-            <div> 
+            <div className = "Features-Container"> 
                 <SongFeatures playback = {this.props.playback} new_song = {this.props.new_song}/>
-                <AlbumFeatures playback = {this.props.playback}/> 
-                <ArtistFeatures playback = {this.props.playback}/> 
+                <AlbumFeatures playback = {this.props.playback} new_song = {this.props.new_song}/> 
+                <ArtistFeatures playback = {this.props.playback} new_song = {this.props.new_song}/> 
             </div>
         )
     }

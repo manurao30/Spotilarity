@@ -108,13 +108,13 @@ class SongFeatures extends Component{
                             <RadarChart data = {datas} captions = {caps}/>
                         </div>
                         <div className = "List"> 
-                            <div> Danceability: {this.state.data.danceability} </div>
-                            <div> Energy: {this.state.data.energy} </div>
-                            <div> Valence: {this.state.data.valence} </div>
-                            <div> Acousticness: {this.state.data.acousticness} </div>
-                            <div> Instrumentalness: {this.state.data.instrumentalness} </div>
-                            <div> Liveness: {this.state.data.liveness} </div>
-                            <div> Speechiness: {this.state.data.speechiness} </div>
+                            <div className = "Feature"> Danceability: {this.state.data.danceability} </div>
+                            <div className = "Feature"> Energy: {this.state.data.energy.toFixed(3)} </div>
+                            <div className = "Feature"> Valence: {this.state.data.valence.toFixed(3)} </div>
+                            <div className = "Feature"> Acousticness: {this.state.data.acousticness.toFixed(3)} </div>
+                            <div className = "Feature"> Instrumentalness: {this.state.data.instrumentalness.toFixed(3)} </div>
+                            <div className = "Feature"> Liveness: {this.state.data.liveness.toFixed(3)} </div>
+                            <div className = "Feature"> Speechiness: {this.state.data.speechiness.toFixed(3)} </div>
                         </div>
                     </div>
                     }

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './ArtistFeatures.css';
 import SpotifyWebApi from 'spotify-web-api-js';
+import play from '../../pictures/play.svg';
+
 const spotifyApi = new SpotifyWebApi();
 
 class ArtistFeatures extends Component{
@@ -8,7 +10,7 @@ class ArtistFeatures extends Component{
         super(props);
         this.state = {
             display: false,
-            selected: false,
+            selected: true,
             artist_tracks: [],
             artist_related: []
         }
@@ -46,7 +48,7 @@ class ArtistFeatures extends Component{
                 console.log(response, 'artist tracks')
                 let arr = [];
                 for(let i = 0; i < response.tracks.length; i++) {
-                    arr.push([response.tracks[i], i+1])
+                    arr.push([response.tracks[i]])
                 }
                 this.setState({
                     artist_tracks: arr
@@ -60,7 +62,7 @@ class ArtistFeatures extends Component{
                 console.log(response, 'artist related')
                 let arr = [];
                 for(let i = 0; i < response.artists.length; i++) {
-                    arr.push([response.artists[i], i + 1])
+                    arr.push([response.artists[i]])
                 }
                 this.setState({
                     artist_related: arr
@@ -78,29 +80,31 @@ class ArtistFeatures extends Component{
                 </div>
                 {this.state.selected && 
                     <div>
-                        <div>
-                            <div className = "Title"> Other Popular Tracks By {this.props.playback.artist} </div>
-                            <ol>
+                        <div className = "Title"> Other Popular Tracks by {this.props.playback.artist} </div>
+                        <div className = "Artist-Features-Container">
                                 {this.state.artist_tracks.map(
                                     track => (
-                                        <li key = {track[1]}>
+                                        <div className = "Artist-Container Green">
                                             {track[0].name}
-                                        </li>
+                                        </div>
                                     )
                                 )}
-                            </ol>
                         </div>
-                        <div>
-                            <div className = "Title"> Other Artists like {this.props.playback.artist} </div>
-                            <ol>
+                        <div className = "Title"> Other Artists like {this.props.playback.artist} </div>
+                        <div className = "Artist-Features-Container">
                                 {this.state.artist_related.map(
                                     artist => (
-                                        <li key = {artist[1]}>
-                                            {artist[0].name}
-                                        </li>
+                                        <div className = "Artist-Container">
+                                            <div className = "Artist-Row">
+                                                {<img src = {artist[0].images.length == 0 ? {play} : artist[0].images[2].url} className = "Artist-Image" />}
+                                                <div className = "Artist-Column">
+                                                    <div className = "Artist-Info">{artist[0].name} </div>
+                                                    <div className = "Artist-Info">Popularity: {artist[0].popularity} </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     )
                                 )}
-                            </ol>
                         </div>
                     </div>
                 }
