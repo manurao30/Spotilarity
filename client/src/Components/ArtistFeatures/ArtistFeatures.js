@@ -74,18 +74,24 @@ class ArtistFeatures extends Component{
         return(
             <div>
                 <div className = "Line">
+                    {this.state.selected ? <button className = "Dropdown Left-Content" onClick = {() => this.select()}> ^ </button>
+                    : <button className = "Dropdown Left-Content" onClick = {() => this.select()}> v </button>}
                     <div className = "Title"> Artist Features </div>
-                    {this.state.selected ? <button className = "Dropdown" onClick = {() => this.select()}> ^ </button>
-                    : <button className = "Dropdown" onClick = {() => this.select()}> v </button>}
                 </div>
                 {this.state.selected && 
-                    <div>
+                    <div className = "Left-Content">
                         <div className = "Title"> Other Popular Tracks by {this.props.playback.artist} </div>
                         <div className = "Artist-Features-Container">
                                 {this.state.artist_tracks.map(
                                     track => (
-                                        <div className = "Artist-Container Green">
-                                            {track[0].name}
+                                        <div className = "Artist-Container Green" onClick = {() => window.open(track[0].uri, "_blank")}>
+                                            <div className = "Artist-Row">
+                                                {<img src = {track[0].album.images[2].url} className = "Artist-Image"/>}
+                                                <div className = "Artist-Column">
+                                                    <div className = "Artist-Info"> {track[0].name} </div>
+                                                    <div className = "Artist-Info Popularity-Info"> Popularity: {track[0].popularity} </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     )
                                 )}
@@ -94,12 +100,12 @@ class ArtistFeatures extends Component{
                         <div className = "Artist-Features-Container">
                                 {this.state.artist_related.map(
                                     artist => (
-                                        <div className = "Artist-Container">
+                                        <div className = "Artist-Container" onClick = {() => window.open(artist[0].uri, "_blank")}>
                                             <div className = "Artist-Row">
                                                 {<img src = {artist[0].images.length == 0 ? {play} : artist[0].images[2].url} className = "Artist-Image" />}
                                                 <div className = "Artist-Column">
-                                                    <div className = "Artist-Info">{artist[0].name} </div>
-                                                    <div className = "Artist-Info">Popularity: {artist[0].popularity} </div>
+                                                    <div className = "Artist-Info Orange">{artist[0].name} </div>
+                                                    <div className = "Artist-Info Orange Popularity-Info">Popularity: {artist[0].popularity} </div>
                                                 </div>
                                             </div>
                                         </div>

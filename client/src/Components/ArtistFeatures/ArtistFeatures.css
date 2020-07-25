@@ -1,20 +1,23 @@
-.Title {
-    justify-content: left;
-    text-align: left;
-    margin: 1vw;
-}
-
 .Line {
     display: flex;
     justify-content: space-between;
 }
 
+.Title {
+    margin-right: 2vw;
+}
+
 .Dropdown {
-    margin-right: 5vw;
     color: white;
     background-color: black;
-    border: none;
     font-size: 18px;
+    border: none;
+}
+
+.Left-Content {
+    margin: 1vw;
+    justify-content: left;
+    text-align: left;
 }
 
 .Artist-Features-Container {
@@ -32,13 +35,14 @@
     width: 22vw;
     border-radius: 20px;
     padding: 0.7vw;
-    font-size: 18px;
+    font-size: 14px;
+    /* box-shadow: 3px 3px 3px rgb(160, 166, 252); */
 }
 
 .Green {
-    background-color: rgb(117, 228, 117);
+    background-color: rgb(0, 73, 16);
     width: 24vw;
-    color:  rgb(22, 22, 51);
+    color:  rgb(233, 174, 235);
 }
 
 .Artist-Row {
@@ -49,18 +53,26 @@
 .Artist-Info {
     margin-left: 2vw;
     margin-bottom: 0.7vh;
+    font-size: 16px;
+}
+
+.Popularity-Info {
+    font-size: 13px;
+}
+
+.Orange {
     color: rgb(226, 202, 160);
 }
 
 .Artist-Image {
     margin-left: 0.5vw;
-    height: 96px;
-    width: 96px;
+    height: 72px;
+    width: 72px;
 }
 
 .Artist-Column {
     display: flex;
     flex-direction: column;
     text-align: left;
-    margin-top: 3vh;
+    margin-top: 2vh;
 }

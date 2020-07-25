@@ -9,7 +9,7 @@ class AlbumFeatures extends Component{
         this.state = {
             tracks: [],
             display: false,
-            selected: false
+            selected: true
         }
     }
 
@@ -55,16 +55,18 @@ class AlbumFeatures extends Component{
         return(
             <div>
                 <div className = "Line">
-                    <div className = "Title"> Album Features </div>
                     {this.state.selected ? <button className = "Dropdown" onClick = {() => this.select()}> ^ </button>
                     : <button className = "Dropdown" onClick = {() => this.select()}> v </button>}
+                    <div className = "Title"> Album Features </div>
                 </div>
                 {this.state.selected && 
-                <div className = "Album-Features-Container">
+                <div>
                     {this.state.tracks.map(
                         track => (
-                            <div key = {track.track_number} className = "Album-Container">
-                                {track.name}
+                            <div className = "Album-Features-Container" onClick = {() => window.open(track.uri, "_blank")}>
+                                <div key = {track.track_number} className = "Album-Container">
+                                    {track.name}
+                                </div>
                             </div>
                         )
                     )}

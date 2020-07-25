@@ -1,7 +1,16 @@
 .Title {
+    margin-top: 1vh;
+    margin-right: 2vw;
+}
+
+.Dropdown {
+    margin: 1vw;
     justify-content: left;
     text-align: left;
-    margin: 1vw;
+    color: white;
+    background-color: black;
+    font-size: 18px;
+    border: none;
 }
 
 .Container {
@@ -10,11 +19,11 @@
 }
 
 .Chart {
-    flex: 3;
+    flex: 9;
 }
 
 .List {
-    flex: 2;
+    flex: 5;
 }
 
 .Line {
@@ -22,22 +31,39 @@
     justify-content: space-between;
 }
 
-.Dropdown {
-    margin-right: 5vw;
-    color: white;
-    background-color: black;
-    border: none;
-    font-size: 18px;
-}
-
 .Feature {
     background-color: rgb(95,158,160);
     opacity: 1;
     transform: none;
-    width: 22vw;
+    width: 20vw;
     border-radius: 20px;
     margin: 1vw;
     padding: 0.7vw;
-    font-size: 18px;
-    color: rgb(151, 5, 5);
+    font-size: 16px;
+    color: rgb(24, 7, 7);
+}
+
+.shape {
+    fill-opacity: .9;
+}
+
+.shape:hover {
+    fill-opacity: .65;
+    z-index: 100;
+}   
+
+.scale {
+    fill: rgb(0, 16, 85); 
+    stroke: #999;
+    stroke-width: 0;
+}
+
+.axis {
+    stroke: rgb(255, 255, 255); 
+    stroke-width: 0.15;
+}
+
+.caption {
+    fill: rgb(230, 228, 228); 
+    font-weight: 600; 
 }

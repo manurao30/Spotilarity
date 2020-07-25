@@ -19,6 +19,7 @@
 
 .Picture {
     height: 50vh;
+    box-shadow: 3px 3px 15px rgba(0,0,0,.4);
 }
 
 .Button {

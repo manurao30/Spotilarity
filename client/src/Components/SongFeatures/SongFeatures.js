@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './SongFeatures.css';
 import SpotifyWebApi from 'spotify-web-api-js';
 import RadarChart from 'react-svg-radar-chart';
-import 'react-svg-radar-chart/build/css/index.css'
+// import 'react-svg-radar-chart/build/css/index.css'
 const spotifyApi = new SpotifyWebApi();
 
 class SongFeatures extends Component{
@@ -19,7 +19,7 @@ class SongFeatures extends Component{
                 speechiness: 0
             },
             display: false,
-            selected: false
+            selected: true
         }
     }
 
@@ -88,24 +88,30 @@ class SongFeatures extends Component{
                 liveness: this.state.data.liveness,
                 speechiness: this.state.data.speechiness
             },
-            meta: {color: 'blue'}
+            meta: {color: 'gray'}
         }
 
         const datas = [dataset]
 
+        const options = {
+            size: 800,
+            captionMargin: 20
+        }
+
         return(
             <div>
                 <div className = "Line">
-                    <div className = "Title"> Audio Analysis </div>
+                    {/* <div className = "Title"> Audio Analysis </div> */}
                     {this.state.selected ? <button className = "Dropdown" onClick = {() => this.select()}> ^ </button>
                     : <button className = "Dropdown" onClick = {() => this.select()}> v </button>}
+                    <div className = "Title"> Audio Analysis </div>
                 </div>
                 {this.state.selected && 
                 <div>
                     {this.state.display &&
                     <div className = "Container">
                         <div className = "Chart"> 
-                            <RadarChart data = {datas} captions = {caps}/>
+                            <RadarChart data = {datas} captions = {caps} size = {400}/>
                         </div>
                         <div className = "List"> 
                             <div className = "Feature"> Danceability: {this.state.data.danceability} </div>
