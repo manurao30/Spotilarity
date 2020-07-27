@@ -88,7 +88,7 @@ class SongFeatures extends Component{
                 liveness: this.state.data.liveness,
                 speechiness: this.state.data.speechiness
             },
-            meta: {color: 'gray'}
+            meta: {color: '#5680E9'}
         }
 
         const datas = [dataset]
@@ -99,9 +99,8 @@ class SongFeatures extends Component{
         }
 
         return(
-            <div>
+            <div className = "BG-1">
                 <div className = "Line">
-                    {/* <div className = "Title"> Audio Analysis </div> */}
                     {this.state.selected ? <button className = "Dropdown" onClick = {() => this.select()}> ^ </button>
                     : <button className = "Dropdown" onClick = {() => this.select()}> v </button>}
                     <div className = "Title"> Audio Analysis </div>

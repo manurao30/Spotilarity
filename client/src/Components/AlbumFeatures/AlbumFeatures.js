@@ -53,17 +53,17 @@ class AlbumFeatures extends Component{
 
     render() {
         return(
-            <div>
-                <div className = "Line">
-                    {this.state.selected ? <button className = "Dropdown" onClick = {() => this.select()}> ^ </button>
-                    : <button className = "Dropdown" onClick = {() => this.select()}> v </button>}
+            <div className = "BG-2">
+                <div className = "Album-Line">
+                    {this.state.selected ? <button className = "Dropdown-Album" onClick = {() => this.select()}> ^ </button>
+                    : <button className = "Dropdown-Album" onClick = {() => this.select()}> v </button>}
                     <div className = "Title"> Album Features </div>
                 </div>
                 {this.state.selected && 
-                <div>
+                <div className = "Album-Features-Container" >
                     {this.state.tracks.map(
                         track => (
-                            <div className = "Album-Features-Container" onClick = {() => window.open(track.uri, "_blank")}>
+                            <div onClick = {() => window.open(track.uri, "_blank")}>
                                 <div key = {track.track_number} className = "Album-Container">
                                     {track.name}
                                 </div>

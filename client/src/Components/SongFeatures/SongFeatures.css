@@ -1,6 +1,7 @@
 .Title {
     margin-top: 1vh;
     margin-right: 2vw;
+    font-weight: 800;
 }
 
 .Dropdown {
@@ -8,9 +9,10 @@
     justify-content: left;
     text-align: left;
     color: white;
-    background-color: black;
+    background-color: rgb(134, 95, 207);
     font-size: 18px;
     border: none;
+    font-weight: 900;
 }
 
 .Container {
@@ -32,7 +34,7 @@
 }
 
 .Feature {
-    background-color: rgb(95,158,160);
+    background-color: rgb(125, 203, 206);
     opacity: 1;
     transform: none;
     width: 20vw;
@@ -41,6 +43,7 @@
     padding: 0.7vw;
     font-size: 16px;
     color: rgb(24, 7, 7);
+    box-shadow: 3px 3px 8px rgba(0,0,0,.4);
 }
 
 .shape {
@@ -53,17 +56,23 @@
 }   
 
 .scale {
-    fill: rgb(0, 16, 85); 
+    fill: #C1C8E4; 
     stroke: #999;
     stroke-width: 0;
 }
 
 .axis {
-    stroke: rgb(255, 255, 255); 
-    stroke-width: 0.15;
+    stroke: rgb(0, 0, 0); 
+    stroke-width: 0.05;
 }
 
 .caption {
-    fill: rgb(230, 228, 228); 
-    font-weight: 600; 
+    fill: rgb(125, 203, 206); 
+    font-weight: 900; 
+    font-size: 11px;
+    z-index: 100;
+}
+
+.BG-1 {
+    background-color: #8860D0;
 }
