@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import './Features.css';
 import SpotifyWebApi from 'spotify-web-api-js';
 import RadarChart from 'react-svg-radar-chart';
+// import Toggle from 'react-toggle';
+// import { Slider } from '@material-ui/core';
 import play from '../../pictures/play.svg';
-import { Slider } from '@material-ui/core';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -22,7 +23,7 @@ class Features extends Component {
                 speechiness: 0
             },
             display: false,
-            selected_audio: false,
+            selected_audio: true,
             tracks: [],
             selected_albums: false,
             selected_artist: false,
@@ -38,7 +39,19 @@ class Features extends Component {
                 followers: 0,
                 uri: '',
                 genres: []
-            }
+            },
+            recommendation_limit: 5,
+            recommendation_seed_artists: this.props.playback.artist_id,
+            recommendation_seed_tracks: this.props.playback.track_id,
+            recommendation_market: 'US',
+            recommendation_target_danceability: 0,
+            recommendation_target_energy: 0,
+            recommendation_target_valence: 0,
+            recommendation_target_acousticness: 0,
+            recommendation_target_instrumentalness: 0,
+            recommendation_target_liveness: 0,
+            recommendation_target_speechiness: 0,
+            recommendation_target_popularity: this.props.playback.popularity
         }
     }
 
@@ -67,6 +80,7 @@ class Features extends Component {
             this.getArtistTopTracks();
             this.getArtistRelatedArtists();
             this.getArtist();
+            console.log('poooop')
         }
     }
 
@@ -84,7 +98,14 @@ class Features extends Component {
                         instrumentalness: response.instrumentalness,
                         liveness: response.liveness,
                         speechiness: response.speechiness
-                    }
+                    },
+                    recommendation_target_danceability: response.danceability,
+                    recommendation_target_energy: response.energy,
+                    recommendation_target_valence: response.valence,
+                    recommendation_target_acousticness: response.acousticness,
+                    recommendation_target_instrumentalness: response.instrumentalness,
+                    recommendation_target_liveness: response.liveness,
+                    recommendation_target_speechiness:response.speechiness
                 });
             })
     }
@@ -143,8 +164,18 @@ class Features extends Component {
                         followers: response.followers.total,
                         uri: response.uri,
                         genres: response.genres
-                    }
+                    },
+                    recommendation_seed_artists: response.id,
+                    recommendation_seed_tracks: this.props.playback.track_id,
+                    recommendation_target_popularity: this.props.playback.popularity
                 })
+            })
+    }
+
+    getRecommendations(options) {
+        spotifyApi.getRecommendations(options)
+            .then((response) => {
+                console.log(response, 'recommendations')
             })
     }
 
@@ -207,6 +238,21 @@ class Features extends Component {
 
         const audio_datas = [audio_dataset]
 
+        const recommendation_options = {
+            limit: this.state.recommendation_limit,
+            seed_artists: this.state.recommendation_seed_artists,
+            seed_tracks: this.state.recommendation_seed_tracks,
+            market: this.state.recommendation_market,
+            target_danceability: this.state.recommendation_target_danceability,
+            target_energy: this.state.recommendation_target_energy,
+            target_valence: this.state.recommendation_target_valence,
+            target_acousticness: this.state.recommendation_target_acousticness,
+            target_instrumentalness: this.state.recommendation_target_instrumentalness,
+            target_liveness: this.state.recommendation_target_liveness,
+            target_speechiness: this.state.recommendation_target_speechiness,
+            target_popularity: this.state.recommendation_target_popularity
+        }
+
         return (
             <div className = "Features-Container"> 
                 <div className = "BG-1">
@@ -223,6 +269,7 @@ class Features extends Component {
                                 <RadarChart data = {audio_datas} captions = {audio_caps} size = {400}/>
                             </div>
                             <div className = "Audio-Feature-List"> 
+                                <div className = "Audio-Feature Orange"> Popularity : {this.props.playback.popularity} </div>
                                 <div className = "Audio-Feature"> Danceability: {this.state.audio_data.danceability.toFixed(3)} </div>
                                 <div className = "Audio-Feature"> Energy: {this.state.audio_data.energy.toFixed(3)} </div>
                                 <div className = "Audio-Feature"> Valence: {this.state.audio_data.valence.toFixed(3)} </div>
@@ -245,9 +292,9 @@ class Features extends Component {
                     {this.state.selected && 
                     <div className = "Album-Features-Container" >
                         {this.state.tracks.map(
-                            track => (
+                            (track, index) => (
                                 <div onClick = {() => window.open(track.uri, "_blank")}>
-                                    <div key = {track.track_number} className = "Album-Container">
+                                    <div key = {index} className = "Album-Container Orange">
                                         {track.name}
                                     </div>
                                 </div>
@@ -267,7 +314,7 @@ class Features extends Component {
                         <div className = "Flex Row Margin-2">
                             <div className = "Artist-Info-2 Column"> 
                                 <div className = "Artist-Name"> {this.state.artist_info.name} </div>
-                                <div onClick = {() => window.open(this.state.artist_info.uri)}> <img src = {this.state.artist_info.pic} className = "Artist-Pic"/> </div>
+                                <div onClick = {() => window.open(this.state.artist_info.uri)}> <img src = {this.state.artist_info.pic} alt = "Artist Pic" className = "Artist-Pic"/> </div>
                             </div>
                             <div className = "Artist-Info-Container">
                                 <div className = "Artist-Popularity"> Popularity: {this.state.artist_info.popularity} </div>
@@ -297,7 +344,7 @@ class Features extends Component {
                                     track => (
                                         <div className = "Artist-Container Green Box-Shadow-1" onClick = {() => window.open(track[0].uri, "_blank")}>
                                             <div className = "Artist-Row">
-                                                {<img src = {track[0].album.images[2].url} className = "Artist-Image"/>}
+                                                {<img src = {track[0].album.images[2].url} alt = "Artist Pic" className = "Artist-Image"/>}
                                                 <div className = "Artist-Column Column">
                                                     <div className = "Artist-Info"> {track[0].name} </div>
                                                     <div className = "Artist-Info Popularity-Info"> Popularity: {track[0].popularity} </div>
@@ -321,10 +368,10 @@ class Features extends Component {
                                     artist => (
                                         <div className = "Artist-Container Box-Shadow-1" onClick = {() => window.open(artist[0].uri, "_blank")}>
                                             <div className = "Artist-Row">
-                                                {<img src = {artist[0].images.length == 0 ? {play} : artist[0].images[2].url} className = "Artist-Image" />}
+                                                {<img src = {artist[0].images.length === 0 ? {play} : artist[0].images[2].url} alt = "Artist Pic" className = "Artist-Image" />}
                                                 <div className = "Artist-Column">
-                                                    <div className = "Artist-Info Orange">{artist[0].name} </div>
-                                                    <div className = "Artist-Info Orange Popularity-Info">Popularity: {artist[0].popularity} </div>
+                                                    <div className = "Artist-Info Related-Text">{artist[0].name} </div>
+                                                    <div className = "Artist-Info Related-Text Popularity-Info">Popularity: {artist[0].popularity} </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -340,7 +387,15 @@ class Features extends Component {
                 </div>
                 {this.state.selected_recommendations &&
                     <div>
-                        <Slider />
+                        {/* <Slider /> */}
+                        Recommendations
+                        <button onClick = {() => this.getRecommendations(recommendation_options)}> Recommendations </button>
+                        {/* <label>
+                        <Toggle
+                            defaultChecked={this.state.selected_recommendations}
+                            // onChange={this.handleBaconChange} /> 
+                        />
+                        </label> */}
                     </div>
                 }
             </div>

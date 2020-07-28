@@ -33,7 +33,7 @@ class InfoPlayer extends Component {
                     this.setState({
                         no_data: true
                     });
-                } else if (response.item.name == this.state.playback.name){
+                } else if (response.item.name === this.state.playback.name){
                     this.setState({
                         new_song: false
                     });
@@ -51,7 +51,8 @@ class InfoPlayer extends Component {
                             album: response.item.album.name,
                             album_id: response.item.album.id,
                             loggedIn: true,
-                            no_data: false
+                            no_data: false,
+                            popularity: response.item.popularity
                         },
                         new_song: true
                     });

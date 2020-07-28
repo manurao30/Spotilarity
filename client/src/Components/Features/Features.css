@@ -96,8 +96,8 @@
     justify-content: center;
 }
 
+
 .Album-Container {
-    background-color: rgb(255,160,122);
     opacity: 1;
     transform: none;
     margin: 1vw;
@@ -200,8 +200,12 @@
     font-size: 13px;
 }
 
-.Orange {
+.Related-Text {
     color: #C1C8E4;
+}
+
+.Orange {
+    background-color:  rgb(255,160,122);
 }
 
 .Artist-Image {
@@ -246,7 +250,6 @@
 
 .Artist-Name {
     margin-bottom: 1vh;
-    /* color: rgb(51, 61, 138); */
     color: white;
     font-size: 24px;
     font-weight: 300;

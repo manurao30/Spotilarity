@@ -54,11 +54,11 @@ class Player extends Component {
                 <div> 
                     <div className = "Name"> {this.props.playback.name} </div>
                     <div className = "Artist"> {this.props.playback.artist} </div>
-                    <div> <img src={this.props.playback.albumArt} className = "Picture"/> </div>
+                    <div> <img src = {this.props.playback.albumArt} alt = "Album Art" className = "Picture"/> </div>
                     <div className = "Album"> {this.props.playback.album} </div>
-                    <button className = "Border" onClick = {() => this.skipToPrevious()}> <img src = {previous} className = "Button"/> </button>
-                    {this.state.render && (this.state.isPlaying ? <button className = "Border" onClick = {() => this.pause()}> <img src = {pause} className = "Button"/> </button> : <button className = "Border" onClick = {() => this.play()}> <img src = {play} className = "Button"/> </button>)}
-                    <button className = "Border" onClick = {() => this.skipToNext()}> <img src = {next} className = "Button"/> </button>
+                    <button className = "Border" onClick = {() => this.skipToPrevious()}> <img src = {previous} alt = "Previous" className = "Button"/> </button>
+                    {this.state.render && (this.state.isPlaying ? <button className = "Border" onClick = {() => this.pause()}> <img src = {pause} alt = "Pause" className = "Button"/> </button> : <button className = "Border" onClick = {() => this.play()}> <img src = {play} alt = "Play" className = "Button"/> </button>)}
+                    <button className = "Border" onClick = {() => this.skipToNext()}> <img src = {next} alt = "Next" className = "Button"/> </button>
                 </div>
             </div>
         )
