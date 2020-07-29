@@ -26,7 +26,7 @@ class App extends Component {
     const token = params.access_token;
     return (
       <div className="App">
-        <header className="App-header">
+        <header className="App-header BG-6">
           <Login token = {token} />
         </header>
       </div>

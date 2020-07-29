@@ -35,7 +35,7 @@
 }
 
 .Audio-Feature {
-    background-color: rgb(125, 203, 206);
+    background-color: #56c4ff;
     opacity: 1;
     transform: none;
     width: 20vw;
@@ -165,7 +165,7 @@
 }
 
 .Artist-Container {
-    background-color: rgb(22, 22, 51);
+    background-color: #ff8557;
     opacity: 1;
     transform: none;
     margin: 1vw;
@@ -180,9 +180,10 @@
 }
 
 .Green {
-    background-color: rgb(0, 73, 16);
+    background-color: #9affb6;
     width: 24vw;
-    color: #84CEEB;
+    color: black;
+    /* with help from srikar boinapally */
 }
 
 .Artist-Row {
@@ -201,11 +202,15 @@
 }
 
 .Related-Text {
-    color: #C1C8E4;
+    color: black;
 }
 
 .Orange {
-    background-color:  rgb(255,160,122);
+    background-color:  #ff7a56;
+}
+
+.Yellow {
+    background-color:  #ffe856;
 }
 
 .Artist-Image {
@@ -257,7 +262,7 @@
 
 .Artist-Popularity {
     background-color: #fdff9a;
-    color: #5AB9EA;
+    color: rgb(43, 124, 165);
     margin-bottom: 2vh;
     margin-left: 2vw;
     opacity: 1;
@@ -271,7 +276,7 @@
 
 .Artist-Followers {
     background-color: #56ff64;
-    color: #5AB9EA;
+    color: rgb(43, 124, 165);
     margin-bottom: 3vh;
     opacity: 1;
     transform: none;
@@ -283,8 +288,7 @@
 }
 
 .Header-3 {
-    text-align: right;
-    margin-right: 2vw;
+    text-align: left;
     font-weight: 700;
     font-size: 28px;
     margin-bottom: 2vh;
@@ -293,7 +297,7 @@
 
 .Artist-Genres {
     background-color: #ffbc9a;
-    color: #5AB9EA;
+    color: rgb(43, 124, 165);
     margin-bottom: 1vh;
     opacity: 1;
     transform: none;
@@ -323,3 +327,65 @@
 .Artist-Info-Container {
     padding-top: 6vh;
 }
+
+.Slider-Container {
+    width: 40vw;
+    margin-left: 13vw;
+}
+
+.Option-Container {
+    width: 20vw;
+}
+
+.Recommendation-Title {
+    text-align: right;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 1vh;
+}
+
+.Align-Center {
+    text-align: center;
+}
+
+.select-css {
+	display: block;
+	font-family: sans-serif;
+	font-weight: 700;
+	color: #444; 
+    padding: .6em 1.4em .5em .8em;
+    box-sizing: border-box;
+    border: 1px solid #aaa;
+    box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+    border-radius: .5em;
+    background-color: #df9bff;
+    margin-left: 5vw;
+}
+
+.select-margin {
+    margin-left: 7vw;
+}
+
+.select-css:hover {
+    border-color: rgb(55, 23, 141);
+}
+
+.Blue {
+    background-color: #578cff;
+}
+
+/* .select-css::-ms-expand {
+    display: none;
+}
+
+.select-css:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+}
+
+.select-css option {
+    font-weight:normal;
+} */

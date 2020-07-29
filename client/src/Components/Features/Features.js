@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import './Features.css';
 import SpotifyWebApi from 'spotify-web-api-js';
 import RadarChart from 'react-svg-radar-chart';
-// import Toggle from 'react-toggle';
-// import { Slider } from '@material-ui/core';
+import Toggle from 'react-toggle';
+import { Slider } from '@material-ui/core';
 import play from '../../pictures/play.svg';
 
 const spotifyApi = new SpotifyWebApi();
@@ -23,13 +23,13 @@ class Features extends Component {
                 speechiness: 0
             },
             display: false,
-            selected_audio: true,
-            tracks: [],
+            selected_audio: false,
             selected_albums: false,
             selected_artist: false,
             selected_tracks: false,
             selected_related: false,
-            selected_recommendations: false,
+            selected_recommendations: true,
+            tracks: [],
             artist_tracks: [],
             artist_related: [],
             artist_info: {
@@ -40,18 +40,21 @@ class Features extends Component {
                 uri: '',
                 genres: []
             },
-            recommendation_limit: 5,
+            recommendation_limit: 1,
             recommendation_seed_artists: this.props.playback.artist_id,
             recommendation_seed_tracks: this.props.playback.track_id,
-            recommendation_market: 'US',
-            recommendation_target_danceability: 0,
-            recommendation_target_energy: 0,
-            recommendation_target_valence: 0,
-            recommendation_target_acousticness: 0,
+            recommendation_market: "US",
+            recommendation_target_danceability: 69,
+            recommendation_target_energy: 65,
+            recommendation_target_valence: 50,
+            recommendation_target_acousticness: 24,
             recommendation_target_instrumentalness: 0,
-            recommendation_target_liveness: 0,
-            recommendation_target_speechiness: 0,
-            recommendation_target_popularity: this.props.playback.popularity
+            recommendation_target_liveness: 10,
+            recommendation_target_speechiness: 16,
+            recommendation_target_popularity: this.props.playback.popularity,
+            recommendations_name: '',
+            recommendations_popularity: '',
+            recommendations_uri: ''
         }
     }
 
@@ -91,21 +94,14 @@ class Features extends Component {
                 this.setState({
                     audio_data: 
                     {
-                        danceability: response.danceability,
-                        energy: response.energy,
-                        valence: response.valence,
-                        acousticness: response.acousticness,
-                        instrumentalness: response.instrumentalness,
-                        liveness: response.liveness,
-                        speechiness: response.speechiness
-                    },
-                    recommendation_target_danceability: response.danceability,
-                    recommendation_target_energy: response.energy,
-                    recommendation_target_valence: response.valence,
-                    recommendation_target_acousticness: response.acousticness,
-                    recommendation_target_instrumentalness: response.instrumentalness,
-                    recommendation_target_liveness: response.liveness,
-                    recommendation_target_speechiness:response.speechiness
+                        danceability: response.danceability * 100,
+                        energy: response.energy * 100,
+                        valence: response.valence * 100,
+                        acousticness: response.acousticness * 100,
+                        instrumentalness: response.instrumentalness * 100,
+                        liveness: response.liveness * 100,
+                        speechiness: response.speechiness * 100
+                    }
                 });
             })
     }
@@ -176,6 +172,14 @@ class Features extends Component {
         spotifyApi.getRecommendations(options)
             .then((response) => {
                 console.log(response, 'recommendations')
+                let arr = []
+                for(let i = 0; i < response.tracks.length; i++) {
+                    arr.push(response.tracks[i])
+                }
+                console.log('arr', arr)
+                this.setState({
+                    recommendations: arr
+                });
             })
     }
 
@@ -193,7 +197,7 @@ class Features extends Component {
     }
 
     select_album() {
-        this.state.selected ? this.setState({selected: false}) : this.setState({selected: true})
+        this.state.selected_albums ? this.setState({selected_albums: false}) : this.setState({selected_albums: true})
     }
 
     select_artist() {
@@ -212,6 +216,62 @@ class Features extends Component {
         this.state.selected_recommendations ? this.setState({selected_recommendations: false}) : this.setState({selected_recommendations: true})
     }
 
+    handleDanceability = (event, newValue) => {
+        this.setState({
+            recommendation_target_danceability: newValue
+        });
+    }
+
+    handleEnergy = (event, newValue) => {
+        this.setState({
+            recommendation_target_energy: newValue
+        });
+    }
+
+    handleValence = (event, newValue) => {
+        this.setState({
+            recommendation_target_valence: newValue
+        });
+    }
+
+    handleAcousticness = (event, newValue) => {
+        this.setState({
+            recommendation_target_acousticness: newValue
+        });
+    }
+
+    handleInstrumentalness = (event, newValue) => {
+        this.setState({
+            recommendation_target_instrumentalness: newValue
+        });
+    }
+
+    handleLiveness = (event, newValue) => {
+        this.setState({
+            recommendation_target_liveness: newValue
+        });
+    }
+
+    handleSpeechiness = (event, newValue) => {
+        this.setState({
+            recommendation_target_speechiness: newValue
+        });
+    }
+
+    handlePopularity = (event, newValue) => {
+        this.setState({
+            recommendation_target_popularity: newValue
+        });
+    }
+
+    handleMarket = (event) => {
+        this.setState({recommendation_market: event.target.value});
+    }
+
+    handleLimit = (event) => {
+        this.setState({recommendation_limit: event.target.value})
+    }
+
     render() {
         const audio_caps = {
             danceability: 'Danceability',
@@ -225,13 +285,13 @@ class Features extends Component {
 
         const audio_dataset = {
             data: {
-                danceability: this.state.audio_data.danceability,
-                energy: this.state.audio_data.energy,
-                valence: this.state.audio_data.valence,
-                acousticness: this.state.audio_data.acousticness,
-                instrumentalness: this.state.audio_data.instrumentalness,
-                liveness: this.state.audio_data.liveness,
-                speechiness: this.state.audio_data.speechiness
+                danceability: this.state.audio_data.danceability / 100,
+                energy: this.state.audio_data.energy / 100,
+                valence: this.state.audio_data.valence / 100,
+                acousticness: this.state.audio_data.acousticness / 100,
+                instrumentalness: this.state.audio_data.instrumentalness / 100,
+                liveness: this.state.audio_data.liveness / 100,
+                speechiness: this.state.audio_data.speechiness / 100
             },
             meta: {color: '#5680E9'}
         }
@@ -253,6 +313,11 @@ class Features extends Component {
             target_popularity: this.state.recommendation_target_popularity
         }
 
+        const marks = [
+            { value: 0, label: '0'},
+            { value: 100, label: '100'}
+        ]
+
         return (
             <div className = "Features-Container"> 
                 <div className = "BG-1">
@@ -269,14 +334,14 @@ class Features extends Component {
                                 <RadarChart data = {audio_datas} captions = {audio_caps} size = {400}/>
                             </div>
                             <div className = "Audio-Feature-List"> 
-                                <div className = "Audio-Feature Orange"> Popularity : {this.props.playback.popularity} </div>
-                                <div className = "Audio-Feature"> Danceability: {this.state.audio_data.danceability.toFixed(3)} </div>
-                                <div className = "Audio-Feature"> Energy: {this.state.audio_data.energy.toFixed(3)} </div>
-                                <div className = "Audio-Feature"> Valence: {this.state.audio_data.valence.toFixed(3)} </div>
-                                <div className = "Audio-Feature"> Acousticness: {this.state.audio_data.acousticness.toFixed(3)} </div>
-                                <div className = "Audio-Feature"> Instrumentalness: {this.state.audio_data.instrumentalness.toFixed(3)} </div>
-                                <div className = "Audio-Feature"> Liveness: {this.state.audio_data.liveness.toFixed(3)} </div>
-                                <div className = "Audio-Feature"> Speechiness: {this.state.audio_data.speechiness.toFixed(3)} </div>
+                                <div className = "Audio-Feature Yellow"> Popularity : {this.props.playback.popularity} </div>
+                                <div className = "Audio-Feature"> Danceability: {this.state.audio_data.danceability.toFixed(1)} </div>
+                                <div className = "Audio-Feature"> Energy: {this.state.audio_data.energy.toFixed(1)} </div>
+                                <div className = "Audio-Feature"> Valence: {this.state.audio_data.valence.toFixed(1)} </div>
+                                <div className = "Audio-Feature"> Acousticness: {this.state.audio_data.acousticness.toFixed(1)} </div>
+                                <div className = "Audio-Feature"> Instrumentalness: {this.state.audio_data.instrumentalness.toFixed(1)} </div>
+                                <div className = "Audio-Feature"> Liveness: {this.state.audio_data.liveness.toFixed(1)} </div>
+                                <div className = "Audio-Feature"> Speechiness: {this.state.audio_data.speechiness.toFixed(1)} </div>
                             </div>
                         </div>
                         }
@@ -285,11 +350,11 @@ class Features extends Component {
                 </div>
                 <div className = "BG-2">
                     <div className = "Line">
-                        {this.state.selected ? <button className = "Dropdown-Album" onClick = {() => this.select_album()}> ^ </button>
+                        {this.state.selected_albums ? <button className = "Dropdown-Album" onClick = {() => this.select_album()}> ^ </button>
                         : <button className = "Dropdown-Album" onClick = {() => this.select_album()}> v </button>}
                         <div className = "Titles"> Album Features </div>
                     </div>
-                    {this.state.selected && 
+                    {this.state.selected_albums && 
                     <div className = "Album-Features-Container" >
                         {this.state.tracks.map(
                             (track, index) => (
@@ -386,16 +451,137 @@ class Features extends Component {
                     <div className = "Right-Content Title-2"> Recommendations </div>
                 </div>
                 {this.state.selected_recommendations &&
-                    <div>
-                        {/* <Slider /> */}
-                        Recommendations
+                    <div className = "BG-6">
+                        <div className = "Slider-Container">
+                            <div className = "Recommendation-Title"> Danceability </div>
+                            <Slider 
+                                valueLabelDisplay="on"
+                                marks = {marks}
+                                value = {this.state.recommendation_target_danceability}
+                                onChange = {this.handleDanceability}
+                            />
+                        </div>
+                        <div className = "Slider-Container">
+                            <div className = "Recommendation-Title"> Energy </div>
+                            <Slider 
+                                valueLabelDisplay="on"
+                                marks = {marks}
+                                value = {this.state.recommendation_target_energy}
+                                onChange = {this.handleEnergy}
+                            />
+                        </div>
+                        <div className = "Slider-Container">
+                            <div className = "Recommendation-Title"> Valence </div>
+                            <Slider 
+                                valueLabelDisplay="on"
+                                marks = {marks}
+                                value = {this.state.recommendation_target_valence}
+                                onChange = {this.handleValence}
+                            />
+                        </div>
+                        <div className = "Slider-Container">
+                            <div className = "Recommendation-Title"> Acousticness </div>
+                            <Slider 
+                                valueLabelDisplay="on"
+                                marks = {marks}
+                                value = {this.state.recommendation_target_acousticness}
+                                onChange = {this.handleAcousticness}
+                            />
+                        </div>
+                        <div className = "Slider-Container">
+                            <div className = "Recommendation-Title"> Instrumentalness </div>
+                            <Slider 
+                                valueLabelDisplay="on"
+                                marks = {marks}
+                                value = {this.state.recommendation_target_instrumentalness}
+                                onChange = {this.handleInstrumentalness}
+                            />
+                        </div>
+                        <div className = "Slider-Container">
+                            <div className = "Recommendation-Title"> Liveness </div>
+                            <Slider 
+                                valueLabelDisplay="on"
+                                marks = {marks}
+                                value = {this.state.recommendation_target_liveness}
+                                onChange = {this.handleLiveness}
+                            />
+                        </div>
+                        <div className = "Slider-Container">
+                            <div className = "Recommendation-Title"> Speechiness </div>
+                            <Slider 
+                                valueLabelDisplay="on"
+                                marks = {marks}
+                                value = {this.state.recommendation_target_speechiness}
+                                onChange = {this.handleSpeechiness}
+                            />
+                        </div>
+                        <div className = "Slider-Container">
+                            <div className = "Recommendation-Title"> Popularity </div>
+                            <Slider 
+                                valueLabelDisplay="on"
+                                marks = {marks}
+                                defaultValue = {60}
+                                onChange = {this.handlePopularity}
+                            />
+                        </div>
+                        <div className = "Slider-Container Flex">
+                            <div className = "Option-Container">
+                                <div className = "Recommendation-Title Align-Center"> Market </div>
+                                <form>
+                                    <select value={this.state.recommendation_market} onChange={this.handleMarket} className = "select-css">
+                                        <option value = "US">United States</option>
+                                        <option value = "AU">Australia</option>
+                                        <option value = "BE">Belgium</option>
+                                        <option value = "BR">Brazil</option>
+                                        <option value = "CA">Canada</option>
+                                        <option value = "FR">France</option>
+                                        <option value = "DE">Germany</option>
+                                        <option value = "GB">Great Britain</option>
+                                        <option value = "GR">Greece</option>
+                                        <option value = "IN">India</option>
+                                        <option value = "IT">Italy</option>
+                                        <option value = "JP">Japan</option>
+                                        <option value = "MX">Mexico</option>
+                                        <option value = "NL">Netherlands</option>
+                                        <option value = "NZ">New Zealand</option>
+                                        <option value = "NO">Norway</option>
+                                        <option value = "PT">Portugal</option>
+                                        <option value = "ES">Spain</option>
+                                        <option value = "ZA">South Africa</option>
+                                        <option value = "SE">Sweden</option>
+                                        <option value = "TR">Turkey</option>
+                                    </select>
+                                </form>
+                            </div>
+                            <div className = "Option-Container">
+                            <form>
+                                <div className = "Recommendation-Title Align-Center"> Limit </div>
+                                <select value={this.state.limit} onChange={this.handleLimit} className = "select-css select-margin">
+                                    <option value = "1">1</option>
+                                    <option value = "3">3</option>
+                                    <option value = "5">5</option>
+                                    <option value = "10">10</option>
+                                    <option value = "20">20</option>
+                                    <option value = "50">50</option>
+                                    <option value = "100">100</option>
+                                </select>
+                            </form>
+                            </div>
+                        </div>
                         <button onClick = {() => this.getRecommendations(recommendation_options)}> Recommendations </button>
-                        {/* <label>
-                        <Toggle
-                            defaultChecked={this.state.selected_recommendations}
-                            // onChange={this.handleBaconChange} /> 
-                        />
-                        </label> */}
+                        {this.state.recommendations && this.state.recommendations.map(
+                            recommendation => (
+                                <div className = "Artist-Container Blue Box-Shadow-1" onClick = {() => window.open(recommendation.uri, "_blank")}>
+                                    <div className = "Artist-Row">
+                                        {<img src = {recommendation.album.images[2].url} alt = "Artist Pic" className = "Artist-Image"/>}
+                                        <div className = "Artist-Column Column">
+                                            <div className = "Artist-Info"> {recommendation.name} </div>
+                                            <div className = "Artist-Info Popularity-Info"> Popularity: {recommendation.popularity} </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        )}
                     </div>
                 }
             </div>
