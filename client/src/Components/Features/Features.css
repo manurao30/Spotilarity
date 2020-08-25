@@ -358,7 +358,7 @@
     border: 1px solid #aaa;
     box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
     border-radius: .5em;
-    background-color: #df9bff;
+    background-color: #ede6f0;
     margin-left: 5vw;
 }
 
@@ -373,19 +373,3 @@
 .Blue {
     background-color: #578cff;
 }
-
-/* .select-css::-ms-expand {
-    display: none;
-}
-
-.select-css:focus {
-    border-color: #aaa;
-    box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
-    box-shadow: 0 0 0 3px -moz-mac-focusring;
-    color: #222;
-    outline: none;
-}
-
-.select-css option {
-    font-weight:normal;
-} */

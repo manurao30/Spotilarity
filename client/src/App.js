@@ -1,4 +1,10 @@
 import React, {Component} from 'react';
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch,
+  Link
+} from 'react-router-dom';
 import Login from './Components/Login/Login.js';
 import './App.css';
 
@@ -26,8 +32,18 @@ class App extends Component {
     const token = params.access_token;
     return (
       <div className="App">
-        <header className="App-header BG-6">
-          <Login token = {token} />
+        <header className="App-header">
+          <Router>
+            <Switch>
+              <Route exact path = '/'>
+                <Login token = {token} />
+              </Route>
+              <Route exact path = '/test'>
+                <Login token = {token} />
+                <div> TEST </div>
+              </Route>
+            </Switch>
+          </Router>
         </header>
       </div>
     )

@@ -569,6 +569,7 @@ class Features extends Component {
                             </div>
                         </div>
                         <button onClick = {() => this.getRecommendations(recommendation_options)}> Recommendations </button>
+                        <div className = "Artist-Features-Container">
                         {this.state.recommendations && this.state.recommendations.map(
                             recommendation => (
                                 <div className = "Artist-Container Blue Box-Shadow-1" onClick = {() => window.open(recommendation.uri, "_blank")}>
@@ -582,6 +583,9 @@ class Features extends Component {
                                 </div>
                             )
                         )}
+                        </div>
+                        <br></br>
+                        {!this.state.recommendations && <div><br></br><br></br><br></br></div>}
                     </div>
                 }
             </div>
